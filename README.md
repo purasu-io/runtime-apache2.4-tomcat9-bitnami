@@ -2,6 +2,11 @@
 
 ## Usage
 
+Create local network if needed:
+```bash
+docker network create purasu-local
+```
+
 ```bash
 docker-compose up --build --force-recreate
 
