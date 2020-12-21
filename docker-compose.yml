@@ -15,6 +15,9 @@ services:
       - type: bind
         source: ./volumes/a-shared
         target: /a/shared
+      - type: bind
+        source: ./volumes/a-conf
+        target: /a/conf
 
 networks:
   default:
