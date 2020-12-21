@@ -28,6 +28,9 @@ Static assets served by Apache:
 Application files served by Tomcat:
 * `/app`
 
+Apache configuration:
+* `/a/conf/apache/default.conf`
+
 ## Configuration
 
 * [Bitnami instructions](https://github.com/bitnami/bitnami-docker-tomcat#configuration)
