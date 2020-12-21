@@ -31,13 +31,20 @@ COPY layer /
 
 RUN echo 'web:x:10000:' >>/etc/group
 RUN echo 'web:x:10000:10000:Web User:/home/user:/bin/bash' >>/etc/passwd
+RUN install -d /home/user -o 10000 -g 10000 -m 0700
 
 RUN set -eux; \
-  a2enmod proxy proxy_ajp remoteip; \
+  a2disconf other-vhosts-access-log; \
+  a2enmod proxy; \
+  a2enmod proxy_ajp; \
+  a2enmod remoteip; \
+  a2enmod rewrite; \
+  a2enmod expires; \
+  a2enmod headers; \
   chmod -R a+rwx /opt/bitnami/tomcat; \
   install -d /a/shared/public -o 10000 -g 10000; \
-  install -d /run/apache2 -o 10000; \
-  chown -R 10000 /var/log/apache2;
+  install -d /a/conf -o 10000 -g 10000; \
+  install -d /run/apache2 -o 10000;
 
 USER 10000
 ENV APACHE_RUN_USER="web"
