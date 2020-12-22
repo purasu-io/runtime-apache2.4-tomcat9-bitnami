@@ -14,13 +14,31 @@ RUN set -eux; \
     curl \
     wget \
     git \
-    nano \
-    vim \
+    bash-completion \
     less \
+    jq \
+    tzdata \
+    locales \
+    dnsutils \
     net-tools \
+    netcat \
+    lsof \
+    strace \
+    procps \
+    vim \
+    nano \
+    htop \
+  ; \
+  apt-get clean; \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
+
+RUN set -eux; \
+  apt-get update; \
+  apt-get -yq --no-install-recommends install \
+    libcap2-bin \
     apache2 \
-    libapache2-mod-jk \
     libapache2-mod-rpaf \
+    libapache2-mod-jk \
   ; \
   apt-get clean; \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
