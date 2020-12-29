@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+CONFIG_PATH="/etc/msmtprc"
+
+_append() {
+  local data; data="$*"
+
+  cat >> "${CONFIG_PATH}" <<EOF
+${data}
+EOF
+}
+
+_err() {
+  >&2 echo "$0 $*"
+}
+
+if [[ ! -f "${CONFIG_PATH}" ]]; then
+  _err "Error: Configuration '${CONFIG_PATH}' does not exist"
+  exit 1
+fi
+
+if [[ -n "${SMTP_HOSTNAME:-}" ]]; then
+  _append "host ${SMTP_HOSTNAME}"
+fi
+
+if [[ -n "${SMTP_USERNAME:-}" ]]; then
+  _append "user ${SMTP_USERNAME}"
+fi
+
+if [[ -n "${SMTP_PASSWORD:-}" ]]; then
+  _append "password \"${SMTP_PASSWORD}\""
+fi
+
+exit 0

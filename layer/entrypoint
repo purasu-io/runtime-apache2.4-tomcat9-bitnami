@@ -30,6 +30,10 @@ trap "_term" TERM
 
 _out "BEGIN"
 
+if [[ -f /etc/msmtprc ]]; then
+  msmtp-configure
+fi
+
 _out "Start Apache"
 apachectl -DFOREGROUND &
 apache_pid=$!

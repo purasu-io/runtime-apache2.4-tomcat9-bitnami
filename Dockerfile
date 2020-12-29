@@ -13,6 +13,7 @@ RUN set -eux; \
     ca-certificates \
     curl \
     wget \
+    msmtp \
     git \
     bash-completion \
     less \
@@ -30,7 +31,8 @@ RUN set -eux; \
     htop \
   ; \
   apt-get clean; \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
+  ln -s /usr/bin/msmtp /usr/sbin/sendmail;
 
 RUN set -eux; \
   apt-get update; \
@@ -50,6 +52,7 @@ COPY layer /
 RUN echo 'web:x:10000:' >>/etc/group
 RUN echo 'web:x:10000:10000:Web User:/home/user:/bin/bash' >>/etc/passwd
 RUN install -d /home/user -o 10000 -g 10000 -m 0700
+RUN chmod a+rw /etc/msmtprc
 
 RUN set -eux; \
   a2disconf other-vhosts-access-log; \
